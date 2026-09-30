@@ -1,0 +1,29 @@
+[spotlight]
+radius = 200
+feather = 60
+opacity = 0.85
+
+[magnifier]
+default_zoom = 2.5
+chromatic_strength = 0.5
+max_instances = 8
+
+[freeze]
+max_regions = 8
+
+[trail]
+enabled = true
+length = 40
+color = "#FFFFFF"
+opacity = 0.5
+fade_ms = 600
+
+[keys]
+spotlight = "ScrollLock"
+circle_marker = "Home"
+freeze_region = "Insert"
+freeze_half = "End"
+size_up = "PageUp"
+size_down = "PageDown"
+remove_last = "Delete"
+clear_all = "Escape"
