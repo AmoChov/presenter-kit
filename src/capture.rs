@@ -1,7 +1,6 @@
 //! Screen capture via Win32 BitBlt.
 //! Captures rectangular regions of the desktop into our Bitmap type.
 
-use windows::Win32::Foundation::*;
 use windows::Win32::Graphics::Gdi::*;
 
 use crate::types::{Bitmap, Rect};
@@ -21,7 +20,7 @@ impl ScreenCapture {
             return None;
         }
 
-        let mem_dc = CreateCompatibleDC(Some(screen_dc));
+        let mem_dc = CreateCompatibleDC(screen_dc);
         if mem_dc.is_invalid() {
             ReleaseDC(None, screen_dc);
             return None;
@@ -43,7 +42,7 @@ impl ScreenCapture {
         };
 
         let hbmp = CreateDIBSection(
-            Some(mem_dc),
+            mem_dc,
             &bmi,
             DIB_RGB_COLORS,
             &mut bits_ptr,
@@ -66,7 +65,7 @@ impl ScreenCapture {
         let _ = BitBlt(
             mem_dc,
             0, 0, rect.w, rect.h,
-            Some(screen_dc),
+            screen_dc,
             rect.x, rect.y,
             SRCCOPY,
         );

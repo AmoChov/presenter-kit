@@ -55,7 +55,7 @@ unsafe extern "system" fn keyboard_hook_proc(
                     || wparam.0 == WM_SYSKEYDOWN as usize;
 
                 let _ = PostMessageW(
-                    Some(hwnd),
+                    hwnd,
                     WM_KEY_ACTION,
                     WPARAM(pack_key_action(vk, is_down)),
                     LPARAM(0),

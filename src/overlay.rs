@@ -59,7 +59,7 @@ impl OverlayWindow {
             0, 0, screen_w, screen_h,
             None,
             None,
-            Some(hinstance.into()),
+            hinstance,
             None,
         )?;
 
@@ -67,7 +67,7 @@ impl OverlayWindow {
 
         // Create memory DC and DIB section for UpdateLayeredWindow
         let screen_dc = GetDC(None);
-        let mem_dc = CreateCompatibleDC(Some(screen_dc));
+        let mem_dc = CreateCompatibleDC(screen_dc);
 
         let mut bits_ptr: *mut std::ffi::c_void = std::ptr::null_mut();
         let bmi = BITMAPINFO {
@@ -84,7 +84,7 @@ impl OverlayWindow {
         };
 
         let mem_bmp = CreateDIBSection(
-            Some(mem_dc),
+            mem_dc,
             &bmi,
             DIB_RGB_COLORS,
             &mut bits_ptr,
@@ -133,7 +133,7 @@ impl OverlayWindow {
             None,
             Some(&pos),
             Some(&size),
-            Some(self.mem_dc),
+            self.mem_dc,
             Some(&src),
             COLORREF(0),
             Some(&blend),

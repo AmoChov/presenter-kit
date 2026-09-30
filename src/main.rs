@@ -16,7 +16,6 @@ mod tray;
 
 use windows::Win32::Foundation::*;
 use windows::Win32::UI::WindowsAndMessaging::*;
-use windows::Win32::UI::Input::KeyboardAndMouse::*;
 use windows::core::*;
 
 use types::*;
@@ -300,11 +299,11 @@ unsafe fn handle_key_action(app: &mut App, vk: u32, is_down: bool) {
 unsafe fn ensure_timer(app: &mut App) {
     let need_timer = app.state.any_active || app.state.trail_enabled;
     if need_timer && !app.timer_active {
-        SetTimer(Some(app.overlay.hwnd), TIMER_RENDER, RENDER_INTERVAL_MS, None);
+        SetTimer(app.overlay.hwnd, TIMER_RENDER, RENDER_INTERVAL_MS, None);
         app.timer_active = true;
         app.overlay.show();
     } else if !need_timer && app.timer_active {
-        let _ = KillTimer(Some(app.overlay.hwnd), TIMER_RENDER);
+        let _ = KillTimer(app.overlay.hwnd, TIMER_RENDER);
         app.timer_active = false;
         // Clear overlay and hide
         app.bitmap.clear();

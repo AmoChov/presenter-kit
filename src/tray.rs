@@ -83,7 +83,7 @@ impl TrayIcon {
                 1001 => {
                     // Show about / welcome
                     let _ = MessageBoxW(
-                        Some(self.hwnd),
+                        self.hwnd,
                         w!("PresenterKit v1.0\n\nLightweight presenter overlay for teachers.\n\nHotkeys:\nScrollLock - Spotlight\nHome - Circle Magnifier\nInsert - Freeze Region\nEnd - Freeze Half Screen\nPage Up/Down - Resize\nDelete - Remove Last\nEscape - Clear All"),
                         w!("PresenterKit"),
                         MB_OK | MB_ICONINFORMATION,
